@@ -65,8 +65,6 @@ alpha:1.0]
 
 - (void)updateChar:(nullable NSString *)chars;
 
-- (void)updateChar:(nullable NSString *)chars shift:(BOOL)shift;
-
 @end
 
 @implementation DYHCharButton
@@ -74,14 +72,6 @@ alpha:1.0]
 - (void)updateChar:(nullable NSString *)chars {
     if (chars.length > 0) {
         self.chars = [chars copy];
-        [self updateTitleState];
-    }
-}
-
-- (void)updateChar:(nullable NSString *)chars shift:(BOOL)shift {
-    if (chars.length > 0) {
-        self.chars = [chars copy];
-        self.isShift = shift;
         [self updateTitleState];
     }
 }
@@ -638,8 +628,7 @@ static inline int random_int(int low, int high) {
 //大小写切换
 - (void)shiftAction:(UIButton *)btn {
     self.shiftEnable = !self.shiftEnable;
-    NSArray *subChars = [self subviews];
-    [btn setTitle:self.shiftEnable ? @"☟" : @"☝︎" forState:UIControlStateNormal];
+    NSArray *subChars = [self.inputView subviews];
     [btn setImage:self.shiftEnable ? [UIImage imageNamed:@"shift_Nor"] : [UIImage imageNamed:@"shift_Light"] forState:UIControlStateNormal];
     [subChars enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[DYHCharButton class]]) {
