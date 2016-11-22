@@ -174,8 +174,20 @@ alpha:1.0]
 
 - (void)willMoveToWindow:(UIWindow *)newWindow {
     //NSLog(@"%s--%@",__FUNCTION__,newWindow);
-    if (!newWindow && self.keyboardType == DYHkeyboardTypeNumberPad) {
-        [self loadRandomNumber];
+    if (!newWindow) {
+        switch (self.keyboardType) {
+            case DYHkeyboardTypeSymbol:
+                [self toSymbolKeyboard];
+                break;
+            case DYHkeyboardTypeNumberPad:
+                [self toNumberKeyboard];
+                break;
+            case DYHKeyboardTypeASCIICapable:
+                [self toCharKeyboard];
+                break;
+            default:
+                break;
+        }
     }
 }
 
