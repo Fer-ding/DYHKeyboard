@@ -710,11 +710,19 @@ static inline int random_int(int low, int high) {
 - (void)setInputAccessoryView:(UIView *)inputAccessoryView {
     _inputAccessoryView = inputAccessoryView;
     
+    inputAccessoryView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.inputAccessoryBGView addSubview:inputAccessoryView];
+    
+    NSArray *bgViewhVFL = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[inputAccessoryView]|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:@{@"inputAccessoryView":inputAccessoryView}];
+    NSArray *bgViewvVFL = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[inputAccessoryView]|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:@{@"inputAccessoryView":inputAccessoryView}];
+    
     NSArray *vVFL = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[inputAccessoryBGView]-[inputView(inputViewHeight)]|" options:NSLayoutFormatAlignAllRight | NSLayoutFormatAlignAllLeft metrics:@{@"inputViewHeight":@(DYHKBH)} views:@{@"inputView":self.inputView,@"inputAccessoryBGView":self.inputAccessoryBGView}];
     [self removeConstraints:vVFL];
     
     NSArray *vVFL2 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[inputAccessoryBGView(inputAccessoryBGViewHeight)]-[inputView(inputViewHeight)]|" options:NSLayoutFormatAlignAllRight | NSLayoutFormatAlignAllLeft metrics:@{@"inputAccessoryBGViewHeight":@(inputAccessoryView.bounds.size.height) ,@"inputViewHeight":@(DYHKBH)} views:@{@"inputView":self.inputView,@"inputAccessoryBGView":self.inputAccessoryBGView}];
+    
+    [self addConstraints:bgViewhVFL];
+    [self addConstraints:bgViewvVFL];
     [self addConstraints:vVFL2];
     
     CGRect bounds = self.bounds;
