@@ -641,7 +641,7 @@ static inline int random_int(int low, int high) {
 - (void)shiftAction:(UIButton *)btn {
     self.shiftEnable = !self.shiftEnable;
     NSArray *subChars = [self.inputView subviews];
-    [btn setImage:self.shiftEnable ? [UIImage imageNamed:@"shift_Nor"] : [UIImage imageNamed:@"shift_Light"] forState:UIControlStateNormal];
+    [btn setImage:self.shiftEnable ? [UIImage imageNamed:@"shift_Light"] : [UIImage imageNamed:@"shift_Nor"] forState:UIControlStateNormal];
     [subChars enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[DYHCharButton class]]) {
             DYHCharButton *tmp = (DYHCharButton *)obj;
